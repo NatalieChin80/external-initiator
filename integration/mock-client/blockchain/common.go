@@ -23,6 +23,8 @@ func HandleRequest(conn, platform string, msg JsonrpcMessage) ([]JsonrpcMessage,
 		return handleEthRequest(conn, msg)
 	case "ont":
 		return handleOntRequest(msg)
+	case "substrate":
+		return handleSubstrateRequest(conn, msg);
 	default:
 		return nil, errors.New(fmt.Sprint("unexpected platform: ", platform))
 	}
