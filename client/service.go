@@ -166,9 +166,9 @@ func (srv *Service) getAndTestSubscription(sub *store.Subscription) (subscriber.
 		return nil, err
 	}
 
-	if err := iSubscriber.Test(); err != nil {
-		return nil, errors.Wrap(err, "Failed testing subscriber")
-	}
+	// if err := iSubscriber.Test(); err != nil {
+	// 	return nil, errors.Wrap(err, "Failed testing subscriber")
+	// }
 
 	return iSubscriber, nil
 }

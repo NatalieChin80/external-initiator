@@ -25,9 +25,10 @@ run_test() {
   ./integration/test_ei_event "eth-mock-ws"
   ./integration/test_ei_event "xtz-mock-http"
   ./integration/test_ei_event "ont-mock-http"
+  docker exec integration_chainlink chainlink bridges create '{"name":"substrate-mock-ws","url":"http://localhost:30322"}'
   ./integration/test_ei_event "substrate-mock-ws"
 
-  stop_docker
+  # stop_docker
 
   title "Done running tests"
 }
