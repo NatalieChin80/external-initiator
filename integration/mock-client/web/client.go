@@ -97,9 +97,12 @@ func (srv *HttpService) HandleWs(c *gin.Context) {
 	for {
 		mt, message, err := conn.ReadMessage()
 		if err != nil {
-			logger.Error("read:", err)
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+				logger.Errorw("read message error: %v", err)
+			}
 			break
 		}
+		logger.Infow("web>client.go - message", "Message", string(message))
 
 		var req blockchain.JsonrpcMessage
 		err = json.Unmarshal(message, &req)

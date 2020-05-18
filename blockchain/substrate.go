@@ -247,9 +247,14 @@ func (sm substrateManager) matchesJobid(jobid types.Text) bool {
 
 // Based off blockchain/eth.go > GetTestJson() where if subscriber='ws', returns nil
 func (sm *substrateManager) GetTestJson() []byte {
-	return nil
+	msg := jsonrpcMessage{
+		Version: "2.0",
+		ID:      json.RawMessage(`1`),
+		Method:  "state_getMetadata",
+	}
+	data, _ := json.Marshal(msg)
+	return data
 }
-
 func (sm *substrateManager) ParseTestResponse(data []byte) error {
 	var msg jsonrpcMessage
 	err := json.Unmarshal(data, &msg)
@@ -260,6 +265,7 @@ func (sm *substrateManager) ParseTestResponse(data []byte) error {
 	var res string
 	err = json.Unmarshal(msg.Result, &res)
 	if err != nil {
+		logger.Errorw("encountered error marshalling data : ", "Unmarshal error", err)
 		return err
 	}
 
