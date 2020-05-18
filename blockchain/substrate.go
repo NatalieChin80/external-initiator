@@ -245,14 +245,9 @@ func (sm substrateManager) matchesJobid(jobid types.Text) bool {
 	return false
 }
 
+// Based off blockchain/eth.go > GetTestJson() where if subscriber='ws', returns nil
 func (sm *substrateManager) GetTestJson() []byte {
-	msg := jsonrpcMessage{
-		Version: "2.0",
-		ID:      json.RawMessage(`1`),
-		Method:  "state_getMetadata",
-	}
-	data, _ := json.Marshal(msg)
-	return data
+	return nil
 }
 
 func (sm *substrateManager) ParseTestResponse(data []byte) error {
